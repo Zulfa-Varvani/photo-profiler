@@ -30,9 +30,9 @@ const InputForm = () => {
         setName(e.target.fullName.value);
         setEmail(e.target.email.value);
 
-      /*  projectFireStore.settings({
+        projectFireStore.settings({
             timestampsInSnapshots: true
-        }); */ //allows for one time input (one submission only per user, kinda good)
+        });  //allows for one time input (one submission only per user, kinda good)
 
         const userRef = projectStorage.ref(file.name);
         const userStoreRef = projectFireStore.collection("users");

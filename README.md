@@ -1,7 +1,9 @@
 # photo-profiler 📸
 
 ## About This Project
-A social media app/photo profile made using React and Firebase! Just enter in your name, email, and profile photo and you can create your own photo gallery to show off to friends!
+A social media app/photo profile made using React and Firebase! Just enter your information and login to your account to upload images and share with the public!
+
+Allows for registration, login, and heading to main dashboard.
 
 ## To-Do:
 * Authentication with Firebase

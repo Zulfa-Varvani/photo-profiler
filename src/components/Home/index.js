@@ -1,6 +1,6 @@
 import React from "react"
 import { Paper, Avatar, Button, Typography } from "@material-ui/core"
-import { VerifiedUserOutlined } from "@material-ui/icons"
+import { CameraAlt } from "@material-ui/icons"
 import withStyles from "@material-ui/core/styles/withStyles"
 import { Link } from "react-router-dom"
 
@@ -42,7 +42,7 @@ const Home = (props) => {
         <main className={classes.main}>
             <Paper className={classes.paper}>
                 <Avatar className={classes.avatar}>
-                    <VerifiedUserOutlined/>
+                    <CameraAlt/>
                 </Avatar>
                 <Typography component="h1" variant="h5">Hello Guest!</Typography>
                 <Typography>Choose an option.</Typography>

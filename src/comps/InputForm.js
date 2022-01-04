@@ -37,9 +37,7 @@ const InputForm = () => {
         const userRef = projectStorage.ref(file.name);
         const userStoreRef = projectFireStore.collection("users");
         
-        userRef.put(file).on("state_changed", (snapShot) => {
-            console.log(snapShot);
-        }, (err) =>{
+        userRef.put(file).on("state_changed", (err) =>{
             console.log(err);
             setError(err);
         }, async() => {
@@ -52,7 +50,7 @@ const InputForm = () => {
             setURL(url);
         });
         console.log(e.target.fullName.value, e.target.email.value);
-        navigate("/home");
+        navigate("/profile");
     }
 
     return (

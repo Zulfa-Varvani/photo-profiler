@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { projectFireStore } from "../firebase/config";
+import { projectFireStore} from "../firebase/config";
 import Profile from "../comps/Profile";
 
 const Home = () => {
@@ -10,12 +10,10 @@ const Home = () => {
     });
 
     const Fetchdata = () => {
-        projectFireStore.collection("users").get().then((querySnapshot) => {
-            querySnapshot.forEach(element => {
-                var data = element.data()
-                setUser(arr => [...arr, data]);
-            });
-        })
+        projectFireStore.collection("users").doc("VuOhkQXfLt0GlGPBs8uu").get().then(documentSnapshot => {
+            var data = documentSnapshot.data();
+            setUser(arr => [...arr, data]);
+        });
     }
 
     return (

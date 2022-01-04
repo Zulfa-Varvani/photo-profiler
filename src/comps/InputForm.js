@@ -30,26 +30,23 @@ const InputForm = () => {
         setName(e.target.fullName.value);
         setEmail(e.target.email.value);
 
-        projectFireStore.settings({
-            timestampsInSnapshots: true
-        });  //allows for one time input (one submission only per user, kinda good)
-
         const userRef = projectStorage.ref(file.name);
         const userStoreRef = projectFireStore.collection("users");
         
-        userRef.put(file).on("state_changed", (err) =>{
+        userRef.put(file).on("state_changed", (snapShot) => {
+            console.log(snapShot);
+        }, (err) =>{
             console.log(err);
             setError(err);
         }, async() => {
             const url = await userRef.getDownloadURL();
-            userStoreRef.add({
+            userStoreRef.doc(e.target.fullName.value).set({
                 name: e.target.fullName.value,
                 email: e.target.email.value,
-                url
-            });
+                url,
+            }).then(() => {console.log("added!");});
             setURL(url);
         });
-        console.log(e.target.fullName.value, e.target.email.value);
         navigate("/profile");
     }
 

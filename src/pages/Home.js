@@ -10,7 +10,7 @@ const Home = () => {
     });
 
     const Fetchdata = () => {
-        projectFireStore.collection("users").doc("VuOhkQXfLt0GlGPBs8uu").get().then(documentSnapshot => {
+        projectFireStore.collection("users").doc("ziggy1").get().then(documentSnapshot => {
             var data = documentSnapshot.data();
             setUser(arr => [...arr, data]);
         });

@@ -4,6 +4,7 @@ import { LockOpen } from "@material-ui/icons"
 import withStyles from "@material-ui/core/styles/withStyles"
 import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
+import { login } from "../config"
 
 const styles = theme => ({
     main: {
@@ -40,9 +41,23 @@ const styles = theme => ({
 
 const Login = (props) => {
     const {classes} = props;
+    const navigate = useNavigate();
     
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    async function handleLogin() {
+        setLoading(true);
+        try {
+            await login(email, password);
+            navigate("/dashboard");
+        } catch(error) {
+            console.error(error);
+            alert("error!");
+        }
+        setLoading(false);
+    }
     
     return (
         <main className={classes.main}>
@@ -66,7 +81,8 @@ const Login = (props) => {
                     type="submit"
                     variant="contained"
                     style={{backgroundColor: "#2EB5E0"}}
-                    //onClick={login}
+                    disabled={loading}
+                    onClick={handleLogin}
                     className={classes.submit}>
                     Sign In
                 </Button>

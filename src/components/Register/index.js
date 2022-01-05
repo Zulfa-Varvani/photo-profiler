@@ -4,6 +4,7 @@ import { LockOpen } from "@material-ui/icons"
 import withStyles from "@material-ui/core/styles/withStyles"
 import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
+import { register } from "../config"
 
 const styles = theme => ({
     main: {
@@ -45,6 +46,19 @@ const Register = (props) => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    async function handleRegister() {
+        setLoading(true);
+        try {
+            await register(name, email, password);
+            navigate("/dashboard");
+        } catch(error) {
+            console.error(error);
+            alert("error!");
+        }
+        setLoading(false);
+    }
 
     return (
         <main className={classes.main}>
@@ -72,7 +86,8 @@ const Register = (props) => {
                     type="submit"
                     variant="contained"
                     style={{backgroundColor: "#2E8BC0"}}
-                    //onClick={onRegister}
+                    disabled={loading}
+                    onClick={handleRegister}
                     className={classes.submit}>
                     Register
                 </Button>

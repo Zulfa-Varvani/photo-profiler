@@ -4,10 +4,9 @@ import Home from "../Home"
 import Dashboard from "../Dashboard"
 import Login from "../Login"
 import Register from "../Register"
-import { MuiThemeProvider, createTheme, CircularProgress } from "@material-ui/core"
+import { MuiThemeProvider, createTheme} from "@material-ui/core"
 import { CssBaseline } from "@material-ui/core"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import { useState, useEffect } from "react"
 
 const theme = createTheme();
 

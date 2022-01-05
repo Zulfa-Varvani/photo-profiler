@@ -6,10 +6,11 @@ A social media app/photo profile made using React and Firebase! Just enter your 
 Allows for registration, login, and heading to main dashboard.
 
 ## To-Do:
-* Authentication with Firebase
-* Make a new webpage after submission with the page path as their name
-* Display their user profile on that page
-* Allow them to add images and put in a nice gallery
+* [x] Authentication with Firebase
+* [ ] Update userProfile on Firebase with their name (not updating for some reason)
+* [ ] Make a new webpage after submission with the page path as their name
+* [ ] Display their user profile on that page
+* [ ] Allow them to add images and put in a nice gallery
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

@@ -2,7 +2,9 @@ import React from "react"
 import { Paper, Avatar, Button, Typography, FormControl, Input, InputLabel } from "@material-ui/core"
 import { LockOpen } from "@material-ui/icons"
 import withStyles from "@material-ui/core/styles/withStyles"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useState } from "react"
+import config from "../config"
 
 const styles = theme => ({
     main: {
@@ -39,7 +41,11 @@ const styles = theme => ({
 
 const Login = (props) => {
     const {classes} = props;
-
+    let navigate = useNavigate();
+    
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    
     return (
         <main className={classes.main}>
             <Paper className={classes.paper}>
@@ -50,23 +56,19 @@ const Login = (props) => {
                 <Typography>Please sign in.</Typography>
                 <form className={classes.form} onSubmit={e => e.preventDefault() && false}>
                     <FormControl margin="normal" required fullWidth>
-                        <InputLabel htmlFor="name">Name</InputLabel>
-                        <Input id="name" name="name" placeholder="Bob Doe" autoFocus/>
-                    </FormControl>
-                    <FormControl margin="normal" required fullWidth>
                         <InputLabel htmlFor="email">Email Address</InputLabel>
-                        <Input id="email" name="email" placeholder="bob.doe@gmail.com"  autoFocus/>
+                        <Input id="email" name="email" placeholder="bob.doe@gmail.com" autoFocus value={email} onChange={e => setEmail(e.target.value)}/>
                     </FormControl>
                     <FormControl margin="normal" required fullWidth>
                         <InputLabel htmlFor="password">Password</InputLabel>
-                        <Input id="password" name="password" placeholder="Enter Password" type="password"/>
+                        <Input id="password" name="password" placeholder="Enter Password" type="password" value={password} onChange={e => setPassword(e.target.value)}/>
                     </FormControl>
                 </form>
                 <Button
                     type="submit"
                     variant="contained"
                     style={{backgroundColor: "#2EB5E0"}}
-                    //onClick={login}
+                    onClick={login}
                     className={classes.submit}>
                     Sign In
                 </Button>
@@ -82,6 +84,15 @@ const Login = (props) => {
             </Paper>
         </main>
     )
+
+    async function login() {
+        try {
+            await config.login(email, password);
+            navigate("/dashboard");
+        } catch(error) {
+            alert(error.message)
+        }
+    }
 }
 
 export default withStyles(styles)(Login);

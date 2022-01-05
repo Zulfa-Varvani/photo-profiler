@@ -2,7 +2,9 @@ import React from "react"
 import { Paper, Avatar, Button, Typography, FormControl, Input, InputLabel } from "@material-ui/core"
 import { LockOpen } from "@material-ui/icons"
 import withStyles from "@material-ui/core/styles/withStyles"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useState } from "react"
+import config from "../config"
 
 const styles = theme => ({
     main: {
@@ -39,6 +41,11 @@ const styles = theme => ({
 
 const Register = (props) => {
     const {classes} = props;
+    let navigate = useNavigate();
+
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     return (
         <main className={classes.main}>
@@ -51,28 +58,22 @@ const Register = (props) => {
                 <form className={classes.form} onSubmit={e => e.preventDefault() && false}>
                     <FormControl margin="normal" required fullWidth>
                         <InputLabel htmlFor="name">Name</InputLabel>
-                        <Input id="name" name="name" placeholder="Bob Doe" autoFocus/>
+                        <Input id="name" name="name" placeholder="Bob Doe" autoFocus value={name} onChange={e => setName(e.target.value)}/>
                     </FormControl>
                     <FormControl margin="normal" required fullWidth>
                         <InputLabel htmlFor="email">Email Address</InputLabel>
-                        <Input id="email" name="email" placeholder="bob.doe@gmail.com" autoFocus/>
+                        <Input id="email" name="email" placeholder="bob.doe@gmail.com" autoFocus value={email} onChange={e => setEmail(e.target.value)}/>
                     </FormControl>
                     <FormControl margin="normal" required fullWidth>
                         <InputLabel htmlFor="password">Password</InputLabel>
-                        <Input id="password" name="password" placeholder="Enter Password" type="password"/>
-                    </FormControl>
-                    <FormControl margin="normal" required fullWidth>
-                        <Button variant="contained" component="label" style={{backgroundColor: "#8FDDE7"}}>
-                            Upload Profile Picture
-                            <input type="file" hidden/>
-                        </Button>
+                        <Input id="password" name="password" placeholder="Enter Password" type="password" value={password} onChange={e => setPassword(e.target.value)}/>
                     </FormControl>
                 </form>
                 <Button
                     type="submit"
                     variant="contained"
                     style={{backgroundColor: "#2E8BC0"}}
-                    //onClick={login}
+                    onClick={onRegister}
                     className={classes.submit}>
                     Register
                 </Button>
@@ -88,6 +89,15 @@ const Register = (props) => {
             </Paper>
         </main>
     )
+
+    async function onRegister() {
+        try {
+            await config.register(name, email, password);
+            navigate("/dashboard");
+        } catch(error){
+            alert(error.message);
+        }
+    }
 }
 
 export default withStyles(styles)(Register);

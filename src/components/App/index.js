@@ -4,15 +4,25 @@ import Home from "../Home"
 import Dashboard from "../Dashboard"
 import Login from "../Login"
 import Register from "../Register"
-import { MuiThemeProvider, createTheme } from "@material-ui/core"
+import { MuiThemeProvider, createTheme, CircularProgress } from "@material-ui/core"
 import { CssBaseline } from "@material-ui/core"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { useState, useEffect } from "react"
+import config from "../config"
 
 const theme = createTheme();
 
 const App = () => {
 
-    return (
+    const [init, setInit] = useState(false);
+
+    useEffect(() => {
+        config.isInit().then(val => {
+            setInit(val);
+        });
+    })
+
+    return init !== false ? (
         <MuiThemeProvider theme={theme}>
             <CssBaseline>
                 <BrowserRouter>
@@ -25,7 +35,7 @@ const App = () => {
                 </BrowserRouter>
             </CssBaseline>
         </MuiThemeProvider>
-    )
+    ) : <div id="loading"><CircularProgress/></div>
 }
 
 export default App;

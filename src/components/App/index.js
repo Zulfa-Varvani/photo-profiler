@@ -8,21 +8,12 @@ import { MuiThemeProvider, createTheme, CircularProgress } from "@material-ui/co
 import { CssBaseline } from "@material-ui/core"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { useState, useEffect } from "react"
-import config from "../config"
 
 const theme = createTheme();
 
 const App = () => {
 
-    const [init, setInit] = useState(false);
-
-    useEffect(() => {
-        config.isInit().then(val => {
-            setInit(val);
-        });
-    })
-
-    return init !== false ? (
+    return (
         <MuiThemeProvider theme={theme}>
             <CssBaseline>
                 <BrowserRouter>
@@ -35,7 +26,7 @@ const App = () => {
                 </BrowserRouter>
             </CssBaseline>
         </MuiThemeProvider>
-    ) : <div id="loading"><CircularProgress/></div>
+    )
 }
 
 export default App;

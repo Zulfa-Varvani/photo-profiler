@@ -4,7 +4,6 @@ import { LockOpen } from "@material-ui/icons"
 import withStyles from "@material-ui/core/styles/withStyles"
 import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
-import config from "../config"
 
 const styles = theme => ({
     main: {
@@ -41,7 +40,6 @@ const styles = theme => ({
 
 const Login = (props) => {
     const {classes} = props;
-    let navigate = useNavigate();
     
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -68,7 +66,7 @@ const Login = (props) => {
                     type="submit"
                     variant="contained"
                     style={{backgroundColor: "#2EB5E0"}}
-                    onClick={login}
+                    //onClick={login}
                     className={classes.submit}>
                     Sign In
                 </Button>
@@ -84,15 +82,6 @@ const Login = (props) => {
             </Paper>
         </main>
     )
-
-    async function login() {
-        try {
-            await config.login(email, password);
-            navigate("/dashboard");
-        } catch(error) {
-            alert(error.message)
-        }
-    }
 }
 
 export default withStyles(styles)(Login);

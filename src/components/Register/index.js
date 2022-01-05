@@ -4,7 +4,6 @@ import { LockOpen } from "@material-ui/icons"
 import withStyles from "@material-ui/core/styles/withStyles"
 import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
-import config from "../config"
 
 const styles = theme => ({
     main: {
@@ -73,7 +72,7 @@ const Register = (props) => {
                     type="submit"
                     variant="contained"
                     style={{backgroundColor: "#2E8BC0"}}
-                    onClick={onRegister}
+                    //onClick={onRegister}
                     className={classes.submit}>
                     Register
                 </Button>
@@ -89,15 +88,6 @@ const Register = (props) => {
             </Paper>
         </main>
     )
-
-    async function onRegister() {
-        try {
-            await config.register(name, email, password);
-            navigate("/dashboard");
-        } catch(error){
-            alert(error.message);
-        }
-    }
 }
 
 export default withStyles(styles)(Register);

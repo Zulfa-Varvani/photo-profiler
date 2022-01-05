@@ -7,9 +7,9 @@ Allows for registration, login, and heading to main dashboard.
 
 ## To-Do:
 * [x] Authentication with Firebase
-* [ ] Update userProfile on Firebase with their name (not updating for some reason)
+* [x] Update userProfile on Firebase with their name (not updating for some reason)
 * [ ] Make a new webpage after submission with the page path as their name
-* [ ] Display their user profile on that page
+* [x] Display their user profile on that page
 * [ ] Allow them to add images and put in a nice gallery
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

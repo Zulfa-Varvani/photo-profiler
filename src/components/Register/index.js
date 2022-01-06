@@ -53,6 +53,7 @@ const Register = (props) => {
         try {
             await register(name, email, password);
             navigate("/dashboard");
+            window.location.reload(false); //reloads page to show updated user name
         } catch(error) {
             console.error(error);
             alert("error!");

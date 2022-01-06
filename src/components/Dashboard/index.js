@@ -55,7 +55,7 @@ const Dashboard = (props) => {
 
         <div className={classes.main}>
             <Paper elevation={6} className={classes.paper}>
-                <Typography component="h1" variant="h5">Welcome {user?.displayName}</Typography>
+                <Typography component="h1" variant="h5">Welcome {user?.displayName.split(" ")[0]}!</Typography>
                 <Typography>
                     Choose files to upload to your profile with the button below! 
                     <br/>

@@ -2,7 +2,9 @@ import React from "react"
 import { Paper, Avatar, Button, Typography } from "@material-ui/core"
 import { CameraAlt } from "@material-ui/icons"
 import withStyles from "@material-ui/core/styles/withStyles"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useState } from "react"
+import { useAuth } from "../config"
 
 const styles = theme => ({
     main: {
@@ -37,6 +39,20 @@ const styles = theme => ({
 
 const Home = (props) => {
     const {classes} = props;
+    const [log, setLog] = useState(false);
+    const user = useAuth();
+    const navigate = useNavigate();
+
+    async function handleLogin() {
+        if(!user) {
+            setLog(true);
+            alert("Please log in first.");
+            navigate("/login");
+        } else {
+            setLog(false);
+            navigate("/dashboard");
+        }
+    }
 
     return (
         <main className={classes.main}>
@@ -46,6 +62,16 @@ const Home = (props) => {
                 </Avatar>
                 <Typography component="h1" variant="h5">Hello Guest!</Typography>
                 <Typography>Choose an option.</Typography>
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    style={{backgroundColor: "#1592B4"}}
+                    disabled={log}
+                    onClick={handleLogin}
+                    className={classes.submit}>
+                    Dashboard
+                </Button>
                 <Button
                     type="submit"
                     fullWidth
@@ -65,16 +91,6 @@ const Home = (props) => {
                     to="/login"
                     className={classes.submit}>
                     Login
-                </Button>
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    style={{backgroundColor: "#1592B4"}}
-                    component={Link}
-                    to="/dashboard"
-                    className={classes.submit}>
-                    Dashboard
                 </Button>
             </Paper>
         </main>

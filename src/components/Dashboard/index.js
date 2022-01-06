@@ -41,6 +41,7 @@ const Dashboard = (props) => {
     const {classes} = props;
     let navigate = useNavigate();
     const user = useAuth();
+    const userName = user?.displayName?.split(" ")[0];
 
     async function handleLogout() {
         try{
@@ -55,7 +56,7 @@ const Dashboard = (props) => {
 
         <div className={classes.main}>
             <Paper elevation={6} className={classes.paper}>
-                <Typography component="h1" variant="h5">Welcome {user?.displayName.split(" ")[0]}!</Typography>
+                <Typography component="h1" variant="h5">Welcome {userName}!</Typography>
                 <Typography>
                     Choose files to upload to your profile with the button below! 
                     <br/>

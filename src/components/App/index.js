@@ -6,7 +6,7 @@ import Login from "../Login"
 import Register from "../Register"
 import { MuiThemeProvider, createTheme} from "@material-ui/core"
 import { CssBaseline } from "@material-ui/core"
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route} from "react-router-dom"
 
 const theme = createTheme();
 

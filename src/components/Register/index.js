@@ -1,6 +1,6 @@
 import React from "react"
 import { Paper, Avatar, Button, Typography, FormControl, Input, InputLabel } from "@material-ui/core"
-import { LockOpen } from "@material-ui/icons"
+import { AccountCircle } from "@material-ui/icons"
 import withStyles from "@material-ui/core/styles/withStyles"
 import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
@@ -65,7 +65,7 @@ const Register = (props) => {
         <main className={classes.main}>
             <Paper className={classes.paper}>
                 <Avatar className={classes.avatar}>
-                    <LockOpen/>
+                    <AccountCircle/>
                 </Avatar>
                 <Typography component="h1" variant="h5">Welcome to Profiler!</Typography>
                 <Typography>Please fill in your information below.</Typography>

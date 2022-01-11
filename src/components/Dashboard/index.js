@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Paper, Typography} from "@material-ui/core";
-import { useAuth, logout } from "../config";
-import withStyles from "@material-ui/core/styles/withStyles"
+import { useAuth, logout, storage } from "../config";
+import withStyles from "@material-ui/core/styles/withStyles";
+import { getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
 
 const styles = theme => ({
     main: {
@@ -42,6 +43,40 @@ const Dashboard = (props) => {
     let navigate = useNavigate();
     const user = useAuth();
     const userName = user?.displayName?.split(" ")[0];
+    const [file, setFile] = useState(null);
+    const [error, setError] = useState("");
+    const [url, setURL] = useState("");
+
+    const handleUpload = (e) => {
+        e.preventDefault();
+        let selected = e.target.files[0];
+        if(selected) {
+            setFile(selected);
+            setError("");
+            uploadFile(selected);
+        } else {
+            setFile(null);
+            setError("error")
+        }
+    }
+
+    const uploadFile = (file) => {
+        const storageRef = ref(storage, `/images/${file.name}`);
+        const uploadTask = uploadBytesResumable(storageRef, file);
+
+        uploadTask.on("state_changed", (snapshot) => {
+            const prog = (snapshot.bytesTransferred / snapshot.totalBytes)*100;
+            console.log(prog);
+        }, (err) => {
+            console.log(err);
+        }, () => {
+                getDownloadURL(uploadTask.snapshot.ref)
+                .then(url => {
+                    setURL(url);
+                })
+            }
+        );
+    }
 
     async function handleLogout() {
         try{
@@ -63,7 +98,7 @@ const Dashboard = (props) => {
                     Please ensure they are in PNG or JPEG format.
                 </Typography>
                 <br/>
-                <input accept="image/*" type="file" id="select-img" style={{ display: "none" }}/>
+                <input accept="image/*" type="file" id="select-img" style={{ display: "none" }} onChange={handleUpload}/>
                 <label htmlFor="select-img">
                     <Button
                         variant="contained"
@@ -82,6 +117,7 @@ const Dashboard = (props) => {
                     Logout
                 </Button>
             </Paper>
+            <img src={url} alt="not render"/>
         </div>
     );
 }

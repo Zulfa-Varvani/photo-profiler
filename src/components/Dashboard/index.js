@@ -1,9 +1,11 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Paper, Typography} from "@material-ui/core";
-import { useAuth, logout, storage } from "../config";
+import { useAuth, logout, storage, db } from "../config";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
+import {addDoc, collection, serverTimestamp} from "firebase/firestore";
+import Grid from "./Grid";
 
 const styles = theme => ({
     main: {
@@ -61,7 +63,7 @@ const Dashboard = (props) => {
     }
 
     const uploadFile = (file) => {
-        const storageRef = ref(storage, `/images/${file.name}`);
+        const storageRef = ref(storage, `${file.name}`);
         const uploadTask = uploadBytesResumable(storageRef, file);
 
         uploadTask.on("state_changed", (snapshot) => {
@@ -73,6 +75,12 @@ const Dashboard = (props) => {
                 getDownloadURL(uploadTask.snapshot.ref)
                 .then(url => {
                     setURL(url);
+                    addDoc(collection(db, "user-dashboard"), {
+                        email: user?.email,
+                        name: user?.displayName,
+                        imgURL: url,
+                        createdAt: serverTimestamp()
+                    });
                 })
             }
         );
@@ -82,43 +90,46 @@ const Dashboard = (props) => {
         try{
             await logout();
             navigate("/");
+            window.location.reload(true);
         } catch(err) {
             alert("error");
         }
     }
 
     return (
-
-        <div className={classes.main}>
-            <Paper elevation={6} className={classes.paper}>
-                <Typography component="h1" variant="h5">Welcome {userName}!</Typography>
-                <Typography>
-                    Choose files to upload to your profile with the button below! 
+        <>
+            <div className={classes.main}>
+                <Paper elevation={6} className={classes.paper}>
+                    <Typography component="h1" variant="h5">Welcome {userName}!</Typography>
+                    <Typography>
+                        Choose files to upload to your profile with the button below! 
+                        <br/>
+                        Please ensure they are in PNG or JPEG format.
+                    </Typography>
                     <br/>
-                    Please ensure they are in PNG or JPEG format.
-                </Typography>
-                <br/>
-                <input accept="image/*" type="file" id="select-img" style={{ display: "none" }} onChange={handleUpload}/>
-                <label htmlFor="select-img">
+                    <input accept="image/*" type="file" id="select-img" style={{ display: "none" }} onChange={handleUpload}/>
+                    <label htmlFor="select-img">
+                        <Button
+                            variant="contained"
+                            component="span"
+                            style={{backgroundColor: "pink", borderRadius:40}}
+                        >
+                            Add Images
+                        </Button>
+                    </label>
+                    <br/>
                     <Button
                         variant="contained"
-                        component="span"
-                        style={{backgroundColor: "pink", borderRadius:40}}
+                        style={{backgroundColor: "#2EB5E0"}}
+                        onClick={handleLogout}
                     >
-                        Add Images
+                        Logout
                     </Button>
-                </label>
-                <br/>
-                <Button
-                    variant="contained"
-                    style={{backgroundColor: "#2EB5E0"}}
-                    onClick={handleLogout}
-                >
-                    Logout
-                </Button>
-            </Paper>
-            <img src={url} alt="not render"/>
-        </div>
+                </Paper>
+            </div>
+            {console.log(user)}
+            <Grid name={user?.displayName}/>
+        </>
     );
 }
 

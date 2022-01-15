@@ -18,13 +18,6 @@ const auth = getAuth();
 export const db = getFirestore();
 export const storage = getStorage(app);
 
-/*export function update(name, email){
-    return addDoc(collection(db, "users"), {
-        name: name,
-        email: email
-    })
-}*/
-
 export function register(name, email, password){
     return createUserWithEmailAndPassword(auth, email, password).then((user) =>{
         updateProfile(user.user, {displayName: name});

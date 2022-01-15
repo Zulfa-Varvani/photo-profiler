@@ -1,9 +1,9 @@
 # photo-profiler 📸
 
 ## About This Project
-A social media app/photo profile made using React and Firebase! Just enter your information and login to your account to upload images and share with the public!
+An image repository just for your images. Add as many images to your profile just by creating an account, adding image descriptions, and uploading them!
 
-Allows for registration, login, and heading to main dashboard.
+Allows for registration, login, and heading to main user dashboard.
 
 ## To-Do:
 * [x] Authentication with Firebase

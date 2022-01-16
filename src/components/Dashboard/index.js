@@ -14,6 +14,17 @@ const styles = theme => ({
 		marginLeft: theme.spacing.unit * 3,
 		marginRight: theme.spacing.unit * 3,
 		[theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
+			width: 900,
+			marginLeft: 'auto',
+			marginRight: 'auto',
+		},
+    },
+    profile: {
+		width: 'auto',
+		display: 'block',
+		marginLeft: theme.spacing.unit * 3,
+		marginRight: theme.spacing.unit * 3,
+		[theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
 			width: 400,
 			marginLeft: 'auto',
 			marginRight: 'auto',
@@ -98,7 +109,7 @@ const Dashboard = (props) => {
 
     return (
         <>
-            <div className={classes.main}>
+            <div className={classes.profile}>
                 <Paper elevation={6} className={classes.paper}>
                     <Typography component="h1" variant="h5">Welcome {userName}!</Typography>
                     <Typography>
@@ -127,7 +138,9 @@ const Dashboard = (props) => {
                     </Button>
                 </Paper>
             </div>
-            {user && <Grid email={user?.email}/>}
+            <div className={classes.main}>
+                {user && <Grid email={user?.email}/>}
+            </div>
         </>
     );
 }

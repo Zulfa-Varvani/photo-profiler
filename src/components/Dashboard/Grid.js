@@ -1,6 +1,7 @@
 import { collection, getDocs, query, where } from "firebase/firestore";
 import React, { useState } from "react";
 import { db } from "../config";
+import { motion } from "framer-motion";
 
 const Grid = ({email}) => {
     const [docs, setDocs] = useState([]);
@@ -16,11 +17,18 @@ const Grid = ({email}) => {
         })
 
     return(
-        <div>
+        <div className="img-grid">
             {docs && docs.map(doc => (
-                <div key={doc.id}>
-                    <img src={doc.imgURL} alt="fail"/>
-                </div>
+                <motion.div className="img-wrap" key={doc.id}
+                    layout
+                    whileHover={{opacity: 1}}
+                >
+                    <motion.img src={doc.imgURL} alt="not-rendered"
+                        initial={{opacity:0}}
+                        animate={{opacity:1}}
+                        transition={{delay:1}}
+                    />
+                </motion.div>
             ))}
         </div>
     )

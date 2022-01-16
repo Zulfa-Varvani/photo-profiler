@@ -10,7 +10,7 @@ Allows for registration, login, and heading to main user dashboard.
 * [x] Update userProfile on Firebase with their name
 * [x] Make a dashboard for user and show all images they've uploaded with their name on top
 * [x] Display their user profile on that page
-* [ ] Allow them to add images and put in a nice gallery
+* [x] Allow them to add images and put in a nice gallery
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

@@ -4,7 +4,7 @@ import { db } from "../config";
 
 const Grid = ({name}) => {
     const [docs, setDocs] = useState([]);
-    const q = query(collection(db, "user-dashboard"), where("name", "==", "New User"));
+    const q = query(collection(db, "user-dashboard"), where("name", "==", name));
 
     getDocs(q)
         .then(querySnapshot => {

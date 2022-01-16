@@ -127,8 +127,7 @@ const Dashboard = (props) => {
                     </Button>
                 </Paper>
             </div>
-            {console.log(user)}
-            <Grid name={user?.displayName}/>
+            {user && <Grid name={user?.displayName}/>}
         </>
     );
 }

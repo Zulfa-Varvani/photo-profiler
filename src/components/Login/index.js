@@ -48,15 +48,17 @@ const Login = (props) => {
     const [loading, setLoading] = useState(false);
 
     async function handleLogin() {
-        setLoading(true);
+        
         try {
+            setLoading(true);
             await login(email, password);
             navigate("/dashboard");
         } catch(error) {
+            setLoading(false);
             console.error(error);
             alert("error!");
         }
-        setLoading(false);
+        
     }
     
     return (

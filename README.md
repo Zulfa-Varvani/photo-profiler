@@ -7,8 +7,8 @@ Allows for registration, login, and heading to main user dashboard.
 
 ## To-Do:
 * [x] Authentication with Firebase
-* [x] Update userProfile on Firebase with their name (not updating for some reason)
-* [ ] Make a new webpage after submission with the page path as their name
+* [x] Update userProfile on Firebase with their name
+* [x] Make a dashboard for user and show all images they've uploaded with their name on top
 * [x] Display their user profile on that page
 * [ ] Allow them to add images and put in a nice gallery
 

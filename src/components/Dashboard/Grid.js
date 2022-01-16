@@ -1,10 +1,10 @@
 import { collection, getDocs, query, where } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { db } from "../config";
 
-const Grid = ({name}) => {
+const Grid = ({email}) => {
     const [docs, setDocs] = useState([]);
-    const q = query(collection(db, "user-dashboard"), where("name", "==", name));
+    const q = query(collection(db, "user-dashboard"), where("email", "==", email));
 
     getDocs(q)
         .then(querySnapshot => {

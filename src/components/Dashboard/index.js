@@ -127,7 +127,7 @@ const Dashboard = (props) => {
                     </Button>
                 </Paper>
             </div>
-            {user && <Grid name={user?.displayName}/>}
+            {user && <Grid email={user?.email}/>}
         </>
     );
 }
